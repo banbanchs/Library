@@ -48,6 +48,7 @@ std::ostream& operator<<(std::ostream& os, const Book& book)
 std::istream& operator>>(std::istream& is, Book& book)
 {
     is >> book.m_id >> book.m_name >> book.m_writer >> book.m_isbn
-        >> book.m_publisher >> book.m_total >> book.m_remain;
+        >> book.m_publisher >> book.m_total;
+    book.m_remain = book.m_total;
     return is;
 }
