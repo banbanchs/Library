@@ -25,6 +25,7 @@ public:
     int remain() const { return this->m_total; }
 
     friend ostream &operator<<(ostream &os, Book &book);
+    friend ostream &operator<<(ostream &os, const Book &book);
     friend istream &operator>>(istream &is, Book &book);
 
 private:

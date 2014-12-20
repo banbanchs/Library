@@ -25,6 +25,7 @@ private:
     bool m_permission;
 
     friend ostream &operator<<(ostream &os, User &user);
+    friend ostream &operator<<(ostream &os, const User &user);
     friend istream &operator>>(istream &is, User &user);
 };
 

@@ -32,7 +32,16 @@ User::User(long id)
 std::ostream& operator<<(std::ostream &os, User &user)
 {
     os << user.m_id << "\t"
-        << user.m_name
+        << user.m_name << "\t"
+        << user.m_sex;
+    return os;
+}
+
+
+std::ostream& operator<<(std::ostream &os, const User &user)
+{
+    os << user.m_id << " "
+        << user.m_name << " "
         << user.m_sex;
     return os;
 }

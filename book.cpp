@@ -32,6 +32,19 @@ std::ostream& operator<<(std::ostream& os, Book& book)
 }
 
 
+std::ostream& operator<<(std::ostream& os, const Book& book)
+{
+    os << book.m_id << " "
+        << book.m_name << " "
+        << book.m_isbn << " "
+        << book.m_writer << " "
+        << book.m_publisher << " "
+        << book.m_total << " "
+        << book.m_remain;
+    return os;
+}
+
+
 std::istream& operator>>(std::istream& is, Book& book)
 {
     is >> book.m_id >> book.m_name >> book.m_writer >> book.m_isbn
