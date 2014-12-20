@@ -56,3 +56,26 @@ void Library::addUser(const User &newUser)
 {
     add("user.txt", newUser);
 }
+
+bool Library::searchBook(const string bookName, Book &theBook)
+{
+    map<string, Book>::const_iterator it = m_bookList.find(bookName);
+    // Found book
+    if (it != m_bookList.end()) {
+        theBook = it->second;
+        return true;
+    }
+    return false;
+}
+
+
+bool Library::searchUser(const long userId, User &theUser)
+{
+    map<long, User>::const_iterator it = m_userList.find(userId);
+    // Found user
+    if (it != m_userList.end()) {
+        theUser = it->second;
+        return true;
+    }
+    return false;
+}

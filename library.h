@@ -16,8 +16,8 @@ public:
     ~Library () {};
     void addBook(const Book &newBook);
     void addUser(const User &newUser);
-    Book &searchBook(const string bookName);
-    User &searchUser(const long userId);
+    bool searchBook(const string bookName, Book &theBook);
+    bool searchUser(const long userId, User &user);
 
 private:
     std::map<long, User> m_userList;
