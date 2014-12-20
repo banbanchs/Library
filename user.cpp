@@ -32,8 +32,11 @@ User::User(long id)
 std::ostream& operator<<(std::ostream &os, User &user)
 {
     os << user.m_id << "\t"
-        << user.m_name << "\t"
-        << user.m_sex;
+        << user.m_name << "\t";
+    if (user.m_sex)
+        os << "male";
+    else
+        os << "female";
     return os;
 }
 
