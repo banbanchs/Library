@@ -43,8 +43,8 @@ std::ostream& operator<<(std::ostream& os, Book& book)
 {
     os << book.m_id << "\t"
         << book.m_name << "\t"
-        << book.m_isbn << "\t"
         << book.m_writer << "\t"
+        << book.m_isbn << "\t"
         << book.m_publisher << "\t"
         << book.m_total << "\t"
         << book.m_remain;
@@ -56,8 +56,8 @@ std::ostream& operator<<(std::ostream& os, const Book& book)
 {
     os << book.m_id << " "
         << book.m_name << " "
-        << book.m_isbn << " "
         << book.m_writer << " "
+        << book.m_isbn << " "
         << book.m_publisher << " "
         << book.m_total;
     return os;
