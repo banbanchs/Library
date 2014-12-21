@@ -77,6 +77,24 @@ void Library::addUser(const User &newUser)
 }
 
 
+void Library::delBook(const string bookName)
+{
+    map<string, Book>::iterator it = m_bookList.find(bookName);
+    if (it != m_bookList.end()) {
+        m_bookList.erase(it);
+    }
+}
+
+
+void Library::delUser(const long userId)
+{
+    map<long, User>::iterator it = m_userList.find(userId);
+    if (it != m_userList.end()) {
+        m_userList.erase(it);
+    }
+}
+
+
 bool Library::borrowBook(User &user, Book &book)
 {
     bool status;

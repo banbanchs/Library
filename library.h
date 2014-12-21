@@ -17,8 +17,13 @@ public:
     ~Library ();
     void addBook(const Book &newBook);
     void addUser(const User &newUser);
+
+    void delBook(const string bookName);
+    void delUser(const long userId);
+
     bool searchBook(const string bookName, Book &theBook);
     bool searchUser(const long userId, User &user);
+
     void sortBook(vector<Book> &bookList);
     bool borrowBook(User &user, Book &book);
     void retBook(User &user, Book &book);
