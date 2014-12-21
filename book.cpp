@@ -59,8 +59,7 @@ std::ostream& operator<<(std::ostream& os, const Book& book)
         << book.m_isbn << " "
         << book.m_writer << " "
         << book.m_publisher << " "
-        << book.m_total << " "
-        << book.m_remain;
+        << book.m_total;
     return os;
 }
 
