@@ -14,6 +14,7 @@ public:
     ~User () {}
 
     long id() const { return this->m_id; }
+    string name() const { return this->m_name; }
 
     bool isSuperUser() const { return this->m_permission; }
     bool active() const { return this->m_active; }
