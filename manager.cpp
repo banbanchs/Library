@@ -63,7 +63,7 @@ void Manager::delBook()
     string bookName;
     char ch;
     if (m_user->id() != 9999) {
-        cerr << "只有管理员才有权限添加图书!" << endl;
+        cerr << "只有管理员才有权限删除图书!" << endl;
         cerr << "输入任意键继续" << endl;
         cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
         getchar();
@@ -103,6 +103,93 @@ void Manager::searchBook()
 }
 
 
+void Manager::delUser()
+{
+    long uid;
+
+    if (m_user->id() != 9999) {
+        cerr << "只有管理员才有权限删除用户!" << endl;
+        cerr << "输入任意键继续" << endl;
+        cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
+        getchar();
+        return;
+    }
+
+    cin >> uid;
+    m_lib.delUser(uid);
+    cout << "用户已删除" << endl;
+    cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
+    getchar();
+    return;
+}
+
+
+void Manager::addUser()
+{
+    User newUser;
+    cout << "请依次输入：学号 用户名 性别（男1 女0）" << endl;
+    cin >> newUser;
+    m_lib.addUser(newUser);
+    cout << "成功注册！" << endl;
+    cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
+    getchar();
+    return;
+}
+
+
+void Manager::borrowBook()
+{
+    Book book;
+    string bookName;
+    if (m_user->id() == 0) {
+        cout << "借书前请先登陆" << endl;
+        cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
+        getchar();
+        return;
+    }
+    cout << "请输入书名" << endl;
+    cin >> bookName;
+    if (m_lib.searchBook(bookName, book)) {
+        bool status = m_lib.borrowBook(*m_user, book);
+        if (status)
+            cout << "成功借走:" << bookName << endl;
+        else
+            cout << "这本书已经被人借走了！" << endl;
+    }
+    else {
+        cout << "图书不存在" << endl;
+    }
+    cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
+    getchar();
+    return;
+}
+
+
+void Manager::returnBook()
+{
+    Book book;
+    string bookName;
+    if (m_user->id() == 0) {
+        cout << "还书前请先登陆" << endl;
+        cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
+        getchar();
+        return;
+    }
+    cout << "请输入书名" << endl;
+    cin >> bookName;
+    if (m_lib.searchBook(bookName, book)) {
+        m_lib.retBook(*m_user, book);
+        cout << "成功还书" << endl;
+    }
+    else {
+        cout << "图书不存在" << endl;
+    }
+    cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
+    getchar();
+    return;
+}
+
+
 void Manager::showAllBook()
 {
     vector<Book> bl;
@@ -110,6 +197,34 @@ void Manager::showAllBook()
     cout << "编号\t书名\t作者\t\tISBN\t\t出版社\t\t总数\t剩余数量" << endl;
     for (auto i : bl)
         cout << i << endl;
+    cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
+    getchar();
+    return;
+}
+
+
+void Manager::showAllBorrowBook()
+{
+    if (m_user->id() == 0) {
+        cout << "请先登陆" << endl;
+        cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
+        getchar();
+        return;
+    }
+    else if (m_user->m_books.size() == 0) {
+        cout << "没有借阅书籍" << endl;
+        cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
+        getchar();
+        return;
+    }
+    list<string>::const_iterator it = m_user->m_books.begin();
+    Book book;
+    cout << "编号\t书名\t作者\t\tISBN\t\t出版社\t\t总数\t剩余数量" << endl;
+    while (it != m_user->m_books.end()) {
+        m_lib.searchBook(*it, book);
+        cout << book << endl;
+        ++it;
+    }
     cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
     getchar();
     return;
@@ -141,8 +256,11 @@ int Manager::showMenu()
     cout << "*     3借书                7登陆                  *" << endl;
     cout << line << endl;
     cout << "*     4还书                8注册                  *" << endl;
+    cout << line << endl;
+    cout << "*                          9查看借阅              *" << endl;
     if (m_user->id() == 9999) {
-        cout << "*                          9删除图书              *" << endl;
+        cout << line << endl;
+        cout << "*                          10删除用户             *" << endl;
     }
     cout << line << endl;
     cout << "*     0退出                                       *" << endl;
@@ -175,10 +293,12 @@ void Manager::run()
 
             // Borrow book
             case 3:
+                borrowBook();
                 break;
 
             // Return book
             case 4:
+                returnBook();
                 break;
 
             // Show all books
@@ -196,9 +316,22 @@ void Manager::run()
                 login();
                 break;
 
-            // Delete user
+            // Register
             case 8:
+                addUser();
                 break;
+
+            // All borrow books
+            case 9:
+                showAllBorrowBook();
+                break;
+
+            // Delete user
+            case 10:
+                delUser();
+                break;
+
+            // Invalid input
             default:
                 break;
         }

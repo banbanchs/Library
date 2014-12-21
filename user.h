@@ -21,6 +21,7 @@ public:
 
     bool borrowBook(string bookName);
     void retBook(string bookName);
+    list<string> m_books;
 
 private:
     long m_id;
@@ -28,8 +29,6 @@ private:
     bool m_sex;     /* man: true, woman: false */
     bool m_active;
     bool m_permission;
-
-    list<string> m_books;
 
     friend ostream &operator<<(ostream &os, User &user);
     friend ostream &operator<<(ostream &os, const User &user);

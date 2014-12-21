@@ -14,6 +14,7 @@ public:
     void login();
     int showMenu();
     void showAllBook();
+    void showAllBorrowBook();
 
     void searchBook();
     void searchUser();
