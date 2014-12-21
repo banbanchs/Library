@@ -24,6 +24,9 @@ public:
     int total() const { return this->m_total; }
     int remain() const { return this->m_total; }
 
+    bool borrow(long uid);
+    void ret(long uid);
+
     friend ostream &operator<<(ostream &os, Book &book);
     friend ostream &operator<<(ostream &os, const Book &book);
     friend istream &operator>>(istream &is, Book &book);
@@ -36,7 +39,7 @@ private:
     string m_publisher;
     int m_total;
     int m_remain;
-    map<User, time_t> m_borrowers;
+    map<long, time_t> m_borrowers;
 };
 
 #endif  // _BOOK_H

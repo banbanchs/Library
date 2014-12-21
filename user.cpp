@@ -1,6 +1,9 @@
 #include <stdexcept>
 #include "user.h"
 
+// Every person can borrow five books
+const int MAX_BORROW = 5;
+
 
 User::User()
 {
@@ -26,6 +29,22 @@ User::User(long id)
     else {
         throw invalid_argument("user id need to be -1");
     }
+}
+
+
+bool User::borrowBook(string bookName)
+{
+    if (m_books.size() < MAX_BORROW) {
+        m_books.push_back(bookName);
+        return true;
+    }
+    return false;
+}
+
+
+void User::retBook(string bookName)
+{
+    m_books.remove(bookName);
 }
 
 

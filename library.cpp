@@ -77,6 +77,27 @@ void Library::addUser(const User &newUser)
 }
 
 
+bool Library::borrowBook(User &user, Book &book)
+{
+    bool status;
+    status = book.borrow(user.id());
+    if (status) {
+        status = user.borrowBook(book.name());
+    }
+    if (status)
+        return true;
+    else
+        return false;
+}
+
+
+void Library::retBook(User &user, Book &book)
+{
+    book.ret(user.id());
+    user.retBook(book.name());
+}
+
+
 bool Library::searchBook(const string bookName, Book &theBook)
 {
     map<string, Book>::const_iterator it = m_bookList.find(bookName);

@@ -2,6 +2,7 @@
 #define _USER_H value
 
 #include <iostream>
+#include <list>
 
 using namespace std;
 
@@ -17,12 +18,17 @@ public:
     bool isSuperUser() const { return this->m_permission; }
     bool active() const { return this->m_active; }
 
+    bool borrowBook(string bookName);
+    void retBook(string bookName);
+
 private:
     long m_id;
     string m_name;
-    bool m_sex;   /* man: true, woman: false */
+    bool m_sex;     /* man: true, woman: false */
     bool m_active;
     bool m_permission;
+
+    list<string> m_books;
 
     friend ostream &operator<<(ostream &os, User &user);
     friend ostream &operator<<(ostream &os, const User &user);

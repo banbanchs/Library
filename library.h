@@ -20,6 +20,8 @@ public:
     bool searchBook(const string bookName, Book &theBook);
     bool searchUser(const long userId, User &user);
     void sortBook(vector<Book> &bookList);
+    bool borrowBook(User &user, Book &book);
+    void retBook(User &user, Book &book);
 
 private:
     std::map<long, User> m_userList;

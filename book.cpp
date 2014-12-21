@@ -19,6 +19,26 @@ Book::Book (string &name, string &isbn, string &writer, string &publisher, int t
 }
 
 
+bool Book::borrow(long uid)
+{
+    map<long, time_t>::iterator it = m_borrowers.find(uid);
+    if (it == m_borrowers.end() && m_remain != 0) {
+        m_borrowers[uid] = getCurrentTime();
+        return true;
+    }
+    return false;
+}
+
+
+void Book::ret(long uid)
+{
+    map<long, time_t>::iterator it = m_borrowers.find(uid);
+    if (it != m_borrowers.end()) {
+        m_borrowers.erase(it);
+    }
+}
+
+
 std::ostream& operator<<(std::ostream& os, Book& book)
 {
     os << book.m_id << "\t"
