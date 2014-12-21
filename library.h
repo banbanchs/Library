@@ -1,6 +1,7 @@
 #ifndef _LIBRARY
 #define _LIBRARY
 
+#include <vector>
 #include <map>
 #include <fstream>
 
@@ -18,6 +19,7 @@ public:
     void addUser(const User &newUser);
     bool searchBook(const string bookName, Book &theBook);
     bool searchUser(const long userId, User &user);
+    void sortBook(vector<Book> &bookList);
 
 private:
     std::map<long, User> m_userList;

@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "library.h"
 
 
@@ -47,6 +48,18 @@ void Library::saveBookList()
 {
     // FIXME: backup data before save new data.
     save("data.txt", m_bookList);
+}
+
+
+void Library::sortBook(vector<Book> &bookList)
+{
+    for (map<string, Book>::const_iterator it = m_bookList.begin();
+            it != m_bookList.end(); ++it) {
+        bookList.push_back(it->second);
+    }
+    sort(bookList.begin(), bookList.end(), [](const Book &a, const Book &b) -> bool {
+            return a.id() < b.id();
+            });
 }
 
 
