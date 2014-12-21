@@ -3,8 +3,8 @@
 
 #include <iostream>
 #include <map>
-#include <time.h>
 
+#include "util.h"
 #include "user.h"
 
 using namespace std;
