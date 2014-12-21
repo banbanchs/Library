@@ -80,6 +80,28 @@ void Manager::delBook()
 }
 
 
+void Manager::searchBook()
+{
+    Book theBook;
+    string bookName;
+    char ch;
+    do {
+        cout << "请输入图书名称" << endl;
+        cin >> bookName;
+        m_lib.searchBook(bookName, theBook);
+        if (theBook.id() == 0)
+            cout << "图书不存在" << endl;
+        else {
+            cout << "编号\t书名\t作者\t\tISBN\t\t出版社\t\t总数\t剩余数量" << endl;
+            cout << theBook << endl;
+        }
+        cout << endl;
+        cout << "继续吗? (y/n)  ";
+        cin >> ch;
+    } while (ch == 'Y' || ch == 'y');
+}
+
+
 int Manager::showMenu()
 {
     int input = 0;
@@ -147,6 +169,7 @@ void Manager::run()
 
             // Search book
             case 6:
+                searchBook();
                 break;
 
             // Login
