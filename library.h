@@ -13,7 +13,7 @@ class Library
 {
 public:
     Library ();
-    ~Library () {};
+    ~Library ();
     void addBook(const Book &newBook);
     void addUser(const User &newUser);
     bool searchBook(const string bookName, Book &theBook);
@@ -23,8 +23,18 @@ private:
     std::map<long, User> m_userList;
     std::map<std::string, Book> m_bookList;
 
-    fstream& loadFile(std::string fname);
-    template <class T> void add(const string fname, const T &newThing);
+private:
+    template <class Key, class Value>
+        void save(const string fname, const map<Key, Value> &list) {
+            ofstream fos;
+            fos.open(fname, ios::out|ios::trunc);
+            if (fos.is_open()) {
+                for (auto it = list.begin(); it != list.end(); ++it)
+                    fos << it->second << endl;
+            }
+        }
+    void saveUserList();
+    void saveBookList();
 };
 
 #endif

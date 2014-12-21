@@ -30,32 +30,39 @@ Library::Library()
 }
 
 
-template <class T>
-void Library::add(const string fname, const T &newThing)
+Library::~Library()
 {
-    ofstream fout;
-    fout.open(fname, ios::out|ios::app);
-    if (fout.is_open()) {
-        fout << newThing << endl;
-    }
-    else {
-        cerr << fname << " doesn't exist." << endl;
-        exit(1);
-    }
-    fout.close();
+    saveBookList();
+    saveUserList();
+}
+
+
+void Library::saveUserList()
+{
+    save("user.txt", m_userList);
+}
+
+
+void Library::saveBookList()
+{
+    // FIXME: backup data before save new data.
+    save("data.txt", m_bookList);
 }
 
 
 void Library::addBook(const Book &newBook)
 {
-    add("data.txt", newBook);
+    // FIXME: throw error when book already exist
+    m_bookList[newBook.name()] = newBook;
 }
 
 
 void Library::addUser(const User &newUser)
 {
-    add("user.txt", newUser);
+    // FIXME: throw error when user already exist
+    m_userList[newUser.id()] = newUser;
 }
+
 
 bool Library::searchBook(const string bookName, Book &theBook)
 {
