@@ -7,7 +7,7 @@ OBJ = $(SRC:.cpp=.o)
 OBJ_FILTES = $(filter-out main.o, $(OBJ))
 TEST= tests/test.cpp
 DST = book
-FLG = -Wall -O1 -std=c++11 -g
+FLG = -pipe -Wall -O1 -std=c++11 -g
 LIB =
 TESTLIB = -lgtest
 
