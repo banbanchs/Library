@@ -114,7 +114,7 @@ void Manager::delUser()
         getchar();
         return;
     }
-
+    cout << "请输入要删除的用户学号" << endl;
     cin >> uid;
     m_lib.delUser(uid);
     cout << "用户已删除" << endl;
