@@ -13,6 +13,7 @@ public:
 
     void login();
     int showMenu();
+    void showAllBook();
 
     void searchBook();
     void searchUser();

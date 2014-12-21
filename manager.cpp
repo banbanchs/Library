@@ -24,6 +24,8 @@ void Manager::login()
     // login success
     if (status) {
         cout << "你好！" << m_user->name() << endl;
+        // Clear stdin
+        cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
         getchar();
     }
     else {
@@ -38,7 +40,6 @@ void Manager::addBook()
     if (m_user->id() != 9999) {
         cerr << "只有管理员才有权限添加图书!" << endl;
         cerr << "输入任意键继续" << endl;
-        // Clear stdin
         cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
         getchar();
         return;
@@ -102,6 +103,19 @@ void Manager::searchBook()
 }
 
 
+void Manager::showAllBook()
+{
+    vector<Book> bl;
+    m_lib.sortBook(bl);
+    cout << "编号\t书名\t作者\t\tISBN\t\t出版社\t\t总数\t剩余数量" << endl;
+    for (auto i : bl)
+        cout << i << endl;
+    cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
+    getchar();
+    return;
+}
+
+
 int Manager::showMenu()
 {
     int input = 0;
@@ -116,8 +130,8 @@ int Manager::showMenu()
 
     // show menu
     cout << dash << endl;
-    cout << "*                 图书管理系统                    *" << endl;
     cout << line << endl;
+    cout << "*                 图书管理系统                    *" << endl;
     cout << line << endl;
     cout << line << endl;
     cout << "*     1添加图书            5查看所有书籍          *" << endl;
@@ -126,9 +140,13 @@ int Manager::showMenu()
     cout << line << endl;
     cout << "*     3借书                7登陆                  *" << endl;
     cout << line << endl;
-    cout << "*     4还书                                       *" << endl;
+    cout << "*     4还书                8注册                  *" << endl;
+    if (m_user->id() == 9999) {
+        cout << "*                          9删除图书              *" << endl;
+    }
     cout << line << endl;
     cout << "*     0退出                                       *" << endl;
+    cout << line << endl;
     cout << dash << endl;
     cin >> input;
     return input;
@@ -165,6 +183,7 @@ void Manager::run()
 
             // Show all books
             case 5:
+                showAllBook();
                 break;
 
             // Search book
@@ -179,6 +198,8 @@ void Manager::run()
 
             // Delete user
             case 8:
+                break;
+            default:
                 break;
         }
     }
