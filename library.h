@@ -1,5 +1,5 @@
-#ifndef _LIBRARY
-#define _LIBRARY
+#ifndef _LIBRARY_H
+#define _LIBRARY_H
 
 #include <vector>
 #include <map>
