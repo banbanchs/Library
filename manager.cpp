@@ -15,6 +15,14 @@ Manager::~Manager()
 }
 
 
+void Manager::waitKey()
+{
+    // Clear stdin
+    cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
+    cin.get();
+}
+
+
 void Manager::login()
 {
     long uid;
@@ -24,12 +32,11 @@ void Manager::login()
     // login success
     if (status) {
         cout << "你好！" << m_user->name() << endl;
-        // Clear stdin
-        cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
-        getchar();
+        waitKey();
     }
     else {
         cout << "用户不存在" << endl;
+        waitKey();
     }
 }
 
@@ -37,11 +44,10 @@ void Manager::login()
 void Manager::addBook()
 {
     char ch;
-    if (m_user->id() != 9999) {
+    if ( !m_user->isSuperUser() ) {
         cerr << "只有管理员才有权限添加图书!" << endl;
         cerr << "输入任意键继续" << endl;
-        cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
-        getchar();
+        waitKey();
         return;
     }
     do {
@@ -62,11 +68,10 @@ void Manager::delBook()
 {
     string bookName;
     char ch;
-    if (m_user->id() != 9999) {
+    if ( !m_user->isSuperUser() ) {
         cerr << "只有管理员才有权限删除图书!" << endl;
         cerr << "输入任意键继续" << endl;
-        cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
-        getchar();
+        waitKey();
         return;
     }
     do {
@@ -107,19 +112,17 @@ void Manager::delUser()
 {
     long uid;
 
-    if (m_user->id() != 9999) {
+    if ( !m_user->isSuperUser() ) {
         cerr << "只有管理员才有权限删除用户!" << endl;
         cerr << "输入任意键继续" << endl;
-        cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
-        getchar();
+        waitKey();
         return;
     }
     cout << "请输入要删除的用户学号" << endl;
     cin >> uid;
     m_lib.delUser(uid);
     cout << "用户已删除" << endl;
-    cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
-    getchar();
+    waitKey();
     return;
 }
 
@@ -131,8 +134,7 @@ void Manager::addUser()
     cin >> newUser;
     m_lib.addUser(newUser);
     cout << "成功注册！" << endl;
-    cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
-    getchar();
+    waitKey();
     return;
 }
 
@@ -143,8 +145,7 @@ void Manager::borrowBook()
     string bookName;
     if (m_user->id() == 0) {
         cout << "借书前请先登陆" << endl;
-        cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
-        getchar();
+        waitKey();
         return;
     }
     cout << "请输入书名" << endl;
@@ -159,8 +160,7 @@ void Manager::borrowBook()
     else {
         cout << "图书不存在" << endl;
     }
-    cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
-    getchar();
+    waitKey();
     return;
 }
 
@@ -171,8 +171,7 @@ void Manager::returnBook()
     string bookName;
     if (m_user->id() == 0) {
         cout << "还书前请先登陆" << endl;
-        cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
-        getchar();
+        waitKey();
         return;
     }
     cout << "请输入书名" << endl;
@@ -184,8 +183,7 @@ void Manager::returnBook()
     else {
         cout << "图书不存在" << endl;
     }
-    cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
-    getchar();
+    waitKey();
     return;
 }
 
@@ -197,8 +195,7 @@ void Manager::showAllBook()
     cout << "编号\t书名\t作者\t\tISBN\t\t出版社\t\t总数\t剩余数量" << endl;
     for (auto i : bl)
         cout << i << endl;
-    cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
-    getchar();
+    waitKey();
     return;
 }
 
@@ -207,14 +204,12 @@ void Manager::showAllBorrowBook()
 {
     if (m_user->id() == 0) {
         cout << "请先登陆" << endl;
-        cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
-        getchar();
+        waitKey();
         return;
     }
     else if (m_user->m_books.size() == 0) {
         cout << "没有借阅书籍" << endl;
-        cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
-        getchar();
+        waitKey();
         return;
     }
     list<string>::const_iterator it = m_user->m_books.begin();
@@ -225,8 +220,7 @@ void Manager::showAllBorrowBook()
         cout << book << endl;
         ++it;
     }
-    cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
-    getchar();
+    waitKey();
     return;
 }
 
@@ -258,7 +252,7 @@ int Manager::showMenu()
     cout << "*     4还书                8注册                  *" << endl;
     cout << line << endl;
     cout << "*                          9查看借阅              *" << endl;
-    if (m_user->id() == 9999) {
+    if (m_user->isSuperUser()) {
         cout << line << endl;
         cout << "*                          10删除用户             *" << endl;
     }

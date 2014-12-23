@@ -30,6 +30,7 @@ public:
 private:
     Library m_lib;
     User *m_user;
+    void waitKey();
 };
 
 #endif
