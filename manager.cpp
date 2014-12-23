@@ -137,7 +137,7 @@ void Manager::delUser()
 void Manager::addUser()
 {
     User newUser;
-    cout << "请依次输入：学号 用户名 性别（男1 女0）" << endl;
+    cout << "请依次输入：学号 用户名 性别（男1 女0），用空格隔开" << endl;
     cin >> newUser;
     m_lib.addUser(newUser);
     cout << "成功注册！" << endl;
