@@ -1,3 +1,4 @@
+#include <iomanip>
 #include "book.h"
 
 Book::Book()
@@ -44,13 +45,14 @@ void Book::ret(long uid)
 
 std::ostream& operator<<(std::ostream& os, Book& book)
 {
-    os << book.m_id << "\t"
-        << book.m_name << "\t"
-        << book.m_writer << "\t"
-        << book.m_isbn << "\t"
-        << book.m_publisher << "\t"
-        << book.m_total << "\t"
-        << book.m_remain;
+    os.setf(ios::left);
+    os << setw(5) << book.m_id
+        << setw(20) << book.m_name
+        << setw(15) << book.m_writer
+        << setw(14) << book.m_isbn
+        << setw(16) << book.m_publisher
+        << setw(2) << book.m_total
+        << setw(2) << book.m_remain;
     return os;
 }
 

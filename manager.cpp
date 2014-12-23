@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <limits>
+#include <iomanip>
 #include "manager.h"
 
 
@@ -98,7 +99,13 @@ void Manager::searchBook()
         if (theBook.id() == 0)
             cout << "图书不存在" << endl;
         else {
-            cout << "编号\t书名\t作者\t\tISBN\t\t出版社\t\t总数\t剩余数量" << endl;
+            cout.setf(ios::left);
+            cout << setw(5) << "编号"
+                << setw(20) << "书名"
+                << setw(15) << "作者"
+                << setw(14) << "ISBN"
+                << setw(16) << "出版社"
+                << "总数 剩余" << endl;
             cout << theBook << endl;
         }
         cout << endl;
@@ -192,7 +199,13 @@ void Manager::showAllBook()
 {
     vector<Book> bl;
     m_lib.sortBook(bl);
-    cout << "编号\t书名\t作者\t\tISBN\t\t出版社\t\t总数\t剩余数量" << endl;
+    cout.setf(ios::left);
+    cout << setw(5) << "编号"
+        << setw(20) << "书名"
+        << setw(15) << "作者"
+        << setw(14) << "ISBN"
+        << setw(16) << "出版社"
+        << "总数 剩余" << endl;
     for (auto i : bl)
         cout << i << endl;
     waitKey();
@@ -214,7 +227,13 @@ void Manager::showAllBorrowBook()
     }
     list<string>::const_iterator it = m_user->m_books.begin();
     Book book;
-    cout << "编号\t书名\t作者\t\tISBN\t\t出版社\t\t总数\t剩余数量" << endl;
+    cout.setf(ios::left);
+    cout << setw(5) << "编号"
+        << setw(20) << "书名"
+        << setw(15) << "作者"
+        << setw(14) << "ISBN"
+        << setw(16) << "出版社"
+        << "总数 剩余" << endl;
     while (it != m_user->m_books.end()) {
         m_lib.searchBook(*it, book);
         cout << book << endl;
