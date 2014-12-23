@@ -1,6 +1,7 @@
-#include <cstdio>
+#include <ctime>
 #include <limits>
 #include <iomanip>
+#include <iostream>
 #include "manager.h"
 
 
@@ -225,7 +226,6 @@ void Manager::showAllBorrowBook()
         waitKey();
         return;
     }
-    list<string>::const_iterator it = m_user->m_books.begin();
     Book book;
     cout.setf(ios::left);
     cout << setw(5) << "编号"
@@ -234,9 +234,16 @@ void Manager::showAllBorrowBook()
         << setw(14) << "ISBN"
         << setw(16) << "出版社"
         << "总数 剩余" << endl;
+    list<string>::const_iterator it = m_user->m_books.begin();
     while (it != m_user->m_books.end()) {
         m_lib.searchBook(*it, book);
         cout << book << endl;
+        time_t t= book.m_borrowers[m_user->id()];
+        cout << "借书时间：" << ctime(&t);
+        // Add the seconds of two months to the timer
+        t += 5184000;
+        cout << "还书时间：" << ctime(&t);
+        cout << endl;
         ++it;
     }
     waitKey();

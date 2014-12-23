@@ -30,6 +30,7 @@ public:
     friend ostream &operator<<(ostream &os, Book &book);
     friend ostream &operator<<(ostream &os, const Book &book);
     friend istream &operator>>(istream &is, Book &book);
+    friend class Manager;
 
 private:
     long m_id;
