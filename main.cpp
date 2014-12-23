@@ -1,5 +1,3 @@
-#include <iostream>
-#include <cstdio>
 #include "manager.h"
 
 using namespace std;
