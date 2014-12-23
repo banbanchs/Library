@@ -13,7 +13,7 @@ public:
     User (long id);
     ~User () {}
 
-    long id() const { return this->m_id; }
+    long long id() const { return this->m_id; }
     string name() const { return this->m_name; }
 
     bool isSuperUser() const { return this->m_permission; }
