@@ -102,6 +102,7 @@ bool Library::borrowBook(User &user, Book &book)
     if (status) {
         status = user.borrowBook(book.name());
     }
+    m_bookList[book.name()] = book;
     if (status)
         return true;
     else
@@ -113,6 +114,7 @@ void Library::retBook(User &user, Book &book)
 {
     book.ret(user.id());
     user.retBook(book.name());
+    m_bookList[book.name()] = book;
 }
 
 

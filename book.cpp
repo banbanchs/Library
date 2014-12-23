@@ -22,6 +22,7 @@ Book::Book (string &name, string &isbn, string &writer, string &publisher, int t
 bool Book::borrow(long uid)
 {
     map<long, time_t>::iterator it = m_borrowers.find(uid);
+    m_remain--;
     if (it == m_borrowers.end() && m_remain != 0) {
         m_borrowers[uid] = getCurrentTime();
         return true;
@@ -36,6 +37,8 @@ void Book::ret(long uid)
     if (it != m_borrowers.end()) {
         m_borrowers.erase(it);
     }
+    if (m_remain < m_total)
+        m_remain++;
 }
 
 
