@@ -18,3 +18,6 @@ Windows(mingw):
 
     ./book
 
+### LICENSE ###
+
+WTFPL
